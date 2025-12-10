@@ -38,7 +38,7 @@ abstract class BaseLoader
         // Или не достигнем посленего номера страницы. 
         while ($total > $to && $page <= $lastPage) {
 
-            // TODO: Не забыть убрать
+            // TODO: Не забыть убрать, испольовалась для тестовых целей
             // if ($page > 3) {
             //     break;
             // }
