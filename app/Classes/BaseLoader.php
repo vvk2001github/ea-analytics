@@ -18,6 +18,10 @@ abstract class BaseLoader
 
     protected static string $dateTo = '2026-12-31';
 
+    /**
+     * Основной метод для обращения к АПИ
+     * @return void
+     */
     public static function execute(): void
     {
         $total = 1;
@@ -29,12 +33,15 @@ abstract class BaseLoader
         $fullUrl = config('dataloader.api_base_uri').static::$apiUrl;
         $output = new ConsoleOutput;
 
+        // Перебираем постранично записи, пока количество записей уже полученных,
+        // не достигнет общего количества записей.
+        // Или не достигнем посленего номера страницы. 
         while ($total > $to && $page <= $lastPage) {
 
             // TODO: Не забыть убрать
-            if ($page > 3) {
-                break;
-            }
+            // if ($page > 3) {
+            //     break;
+            // }
 
             $queryParams = [
                 'page' => $page,
@@ -72,6 +79,10 @@ abstract class BaseLoader
         }
     }
 
+    /**
+     * Получение дополнительных параметров для обращения к АПИ
+     * @return array{dateFrom: string, dateTo: string}
+     */
     protected static function getAdditionalQueryParams(): array
     {
         return [
@@ -80,5 +91,10 @@ abstract class BaseLoader
         ];
     }
 
+    /**
+     * Вставка данных в таблицы БД
+     * @param array $data
+     * @return void
+     */
     abstract protected static function load(array &$data): void;
 }

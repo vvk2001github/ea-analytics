@@ -13,6 +13,7 @@ class SalesLoader extends BaseLoader
 
     protected static function load(array &$data): void
     {
+        // Тут можно добавить валидацию данных
         Log::info(__METHOD__, ['Inserting data to DB']);
         Sale::insert($data);
     }
